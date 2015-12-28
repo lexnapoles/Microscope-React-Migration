@@ -47,7 +47,7 @@ Template.postEdit.events({
 		if (confirm("Delete this posts?")) {
 			var currentPostId = this._id;
 			Posts.remove(currentPostId);
-			Router.go('postsList');
+			Router.go('home');
 		}
 	}
 });
