@@ -1,8 +1,16 @@
 Template.postEdit.onCreated(function () {
 	Session.set('postEditErrors', {});
+	let template = this;
+	
+	template.autorun(function() {
+		template.subscribe('singlePost', Router.current().params._id);
+	});
 });
 
 Template.postEdit.helpers({
+	data: function() { 
+		return Posts.findOne(Router.current().params._id);
+	},
 	errorMessage: function(field) {
 		return Session.get('postEditErrors')[field];
 	},
@@ -16,7 +24,7 @@ Template.postEdit.events({
 	'submit form': function(e) {
 		e.preventDefault();
 			
-		var currentPostId = this._id;
+		var currentPostId = Router.current().params._id;
 		
 		var postProperties = {
 			url: $(e.target).find('[name=url]').val(),
@@ -45,7 +53,7 @@ Template.postEdit.events({
 		e.preventDefault();
 		
 		if (confirm("Delete this posts?")) {
-			var currentPostId = this._id;
+			var currentPostId = Router.current().params._id;
 			Posts.remove(currentPostId);
 			Router.go('home');
 		}
