@@ -1,15 +1,17 @@
-Template.postEdit.onCreated(function () {
+Template.postEdit.onCreated(function () {	
 	Session.set('postEditErrors', {});
-	let template = this;
 	
+	Template.instance().id = Router.current().params._id;
+	
+	let template = this;
 	template.autorun(function() {
-		template.subscribe('singlePost', Router.current().params._id);
+		template.subscribe('singlePost', Template.instance().id);
 	});
 });
 
 Template.postEdit.helpers({
 	data: function() { 
-		return Posts.findOne(Router.current().params._id);
+		return Posts.findOne(Template.instance().id);
 	},
 	errorMessage: function(field) {
 		return Session.get('postEditErrors')[field];
@@ -24,7 +26,7 @@ Template.postEdit.events({
 	'submit form': function(e) {
 		e.preventDefault();
 			
-		var currentPostId = Router.current().params._id;
+		var currentPostId = Template.instance().id;
 		
 		var postProperties = {
 			url: $(e.target).find('[name=url]').val(),
@@ -53,7 +55,7 @@ Template.postEdit.events({
 		e.preventDefault();
 		
 		if (confirm("Delete this posts?")) {
-			var currentPostId = Router.current().params._id;
+			var currentPostId = Template.instance().id;
 			Posts.remove(currentPostId);
 			Router.go('home');
 		}
