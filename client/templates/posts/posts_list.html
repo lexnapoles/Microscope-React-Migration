@@ -5,13 +5,12 @@
 				{{> postItem}}
 			{{/each}}
 		</div>
-		
-		{{#if nextPath}}
-			<a class="load-more" href="{{nextPath}}">Load more</a>
+		{{#if Template.subscriptionsReady}}
+			{{#if hasMorePosts}}
+				<a class="load-more" href="#">Load more</a>								
+			{{/if}}
 		{{else}}
-			{{#unless ready}}
-				{{> spinner}}
-			{{/unless}}
+			{{> spinner}}
 		{{/if}}
 	</div>
 </template>

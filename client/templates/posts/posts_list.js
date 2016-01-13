@@ -1,3 +1,31 @@
+Meteor.startup(function () {
+	Meteor.subscribe("newFivePosts");
+});
+
+Template.postsList.onCreated(function () {
+	let template = this;
+	
+	template.increment = 5;
+	template.loaded = new ReactiveVar(0);
+	template.limit = new ReactiveVar(template.increment);
+	
+	template.autorun(function () {
+		var limit = template.limit.get(),
+			options = _.extend(Router.current().sortOptions(), { limit : limit });
+		
+		var subscription =  template.subscribe('posts', options);
+		
+		if (subscription.ready()) {
+			template.loaded.set(limit);
+		}
+	});
+	
+	template.posts = function() {
+		var options = _.extend(Router.current().sortOptions(), { limit : template.loaded.get() });
+		return Posts.find({}, options);
+	}
+});
+
 Template.postsList.onRendered(function () {
 	this.find('.wrapper')._uihooks = {
 			insertElement: function (node, next) {
@@ -40,5 +68,24 @@ Template.postsList.onRendered(function () {
 				$node.addClass('animate').css('top', 0);
 				$inBetween.addClass('animate').css('top',0);
 			}
+	}
+});
+
+Template.postsList.events({
+	'click .load-more': function (event, template) {
+		event.preventDefault();
+		
+		var limit = template.limit.get();
+		
+		limit += template.increment;
+		template.limit.set(limit);
+	}
+});
+Template.postsList.helpers({
+	posts: function () {
+		return Template.instance().posts();
+	},
+	hasMorePosts: function () {
+		return Template.instance().posts().count() >= Template.instance().limit.get();
 	}
 });

@@ -1,13 +1,13 @@
 <template name="layout">	
-	{{#if Template.subscriptionsReady}}
 		<div class="container">
-			{{> header}}
+			{{#if Template.subscriptionsReady}}
+				{{> header}}
+			{{else}}
+				{{> loading}}
+			{{/if}}
 			{{> errors}}
 			<div id="main">
 				{{> yield}}
 			</div>
 		</div>
-	{{else}}
-		{{> loading}}
-	{{/if}}
 </template>
