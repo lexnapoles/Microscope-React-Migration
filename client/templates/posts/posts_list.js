@@ -2,18 +2,34 @@ Meteor.startup(function () {
 	Meteor.subscribe("newFivePosts");
 });
 
+const sortOptions = {
+	bestPosts:  {sort: {votes: -1, submitted: -1, _id: -1}},
+	newPosts: {sort: {submitted: -1, _id: -1}}
+};
+
 Template.postsList.onCreated(function () {
 	let template = this;
+	const INCREMENT = 5;
 	
-	template.increment = 5;
-	template.loaded = new ReactiveVar(0);
-	template.limit = new ReactiveVar(template.increment);
-	
+	_.extend(template, {
+		increment: INCREMENT,
+		loaded: new ReactiveVar(0),
+		limit: new ReactiveVar(INCREMENT),
+		getTemplateSortOptions: () => {
+				const routeName = Router.current().route.getName();		
+				
+				return routeName === "bestPosts"
+					   ? sortOptions.bestPosts
+					   : sortOptions.newPosts
+		},
+		subscriptionOptions: (limit) => {
+			return _.extend(template.getTemplateSortOptions(), {limit: limit});
+		}
+	});
+
 	template.autorun(function () {
 		var limit = template.limit.get(),
-			options = _.extend(Router.current().sortOptions(), { limit : limit });
-		
-		var subscription =  template.subscribe('posts', options);
+			subscription = template.subscribe('posts', template.subscriptionOptions(limit));
 		
 		if (subscription.ready()) {
 			template.loaded.set(limit);
@@ -21,8 +37,7 @@ Template.postsList.onCreated(function () {
 	});
 	
 	template.posts = function() {
-		var options = _.extend(Router.current().sortOptions(), { limit : template.loaded.get() });
-		return Posts.find({}, options);
+		return Posts.find({}, template.subscriptionOptions());
 	}
 });
 
