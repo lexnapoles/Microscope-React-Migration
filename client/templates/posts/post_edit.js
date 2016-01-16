@@ -1,7 +1,7 @@
 Template.postEdit.onCreated(function () {	
 	Session.set('postEditErrors', {});
 	
-	Template.instance().id = Router.current().params._id;
+	Template.instance().id = FlowRouter.current().params._id;
 	
 	let template = this;
 	template.autorun(function() {
@@ -47,7 +47,7 @@ Template.postEdit.events({
 				 throwError('This link has already been posted');
 			}
 			
-			Router.go('postPage', {_id: result._id});						
+			FlowRouter.go('postPage', {_id: result._id});						
 		});	
 	},
 	
@@ -57,7 +57,7 @@ Template.postEdit.events({
 		if (confirm("Delete this posts?")) {
 			var currentPostId = Template.instance().id;
 			Posts.remove(currentPostId);
-			Router.go('home');
+			FlowRouter.go('home');
 		}
 	}
 });
