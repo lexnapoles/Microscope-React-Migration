@@ -17,10 +17,12 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 twbs:bootstrap
-iron:router
 sacha:spin
 ian:accounts-ui-bootstrap-3
 accounts-password
 check
 audit-argument-checks
 reactive-var
+kadira:flow-router
+kadira:blaze-layout
+arillo:flow-router-helpers

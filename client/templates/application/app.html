@@ -1,4 +1,4 @@
-<template name="layout">	
+<template name="app">
 		<div class="container">
 			{{#if Template.subscriptionsReady}}
 				{{> header}}
@@ -7,7 +7,7 @@
 			{{/if}}
 			{{> errors}}
 			<div id="main">
-				{{> yield}}
+				{{> Template.dynamic template=main}}
 			</div>
 		</div>
 </template>
