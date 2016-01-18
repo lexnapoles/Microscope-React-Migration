@@ -1,7 +1,7 @@
 Template.postEdit.onCreated(function () {	
 	Session.set('postEditErrors', {});
 	
-	Template.instance().id = FlowRouter.current().params._id;
+	Template.instance().id = FlowRouter.getParam("_id");
 	
 	let template = this;
 	template.autorun(function() {

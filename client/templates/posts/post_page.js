@@ -1,5 +1,5 @@
 Template.postPage.onCreated(function() {
-	Template.instance().id = FlowRouter.current().params._id;
+	Template.instance().id = FlowRouter.getParam("_id");
 	
 	let template = this;
 	template.autorun(function() {

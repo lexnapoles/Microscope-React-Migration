@@ -2,21 +2,21 @@ Meteor.startup(function () {
 	Meteor.subscribe("newFivePosts");
 });
 
-const sortOptions = {
-	bestPosts:  {sort: {votes: -1, submitted: -1, _id: -1}},
-	newPosts: {sort: {submitted: -1, _id: -1}}
-};
-
 Template.postsList.onCreated(function () {
+	const INCREMENT = 5,
+		  sortOptions = {
+				bestPosts:  {sort: {votes: -1, submitted: -1, _id: -1}},
+				newPosts: {sort: {submitted: -1, _id: -1}}
+		  };
+		  
 	let template = this;
-	const INCREMENT = 5;
 	
 	_.extend(template, {
 		increment: INCREMENT,
 		loaded: new ReactiveVar(0),
 		limit: new ReactiveVar(INCREMENT),
 		getTemplateSortOptions: () => {
-				const routeName = Router.current().route.getName();		
+				const routeName = FlowRouter.getRouteName();		
 				
 				return routeName === "bestPosts"
 					   ? sortOptions.bestPosts
