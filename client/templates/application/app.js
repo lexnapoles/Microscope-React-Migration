@@ -1,8 +1,8 @@
-Template.layout.onCreated(function() {
+Template.app.onCreated(function() {
 	this.subscribe('notifications');
 });
 
-Template.layout.onRendered(function() {	
+Template.app.onRendered(function() {	
 	this.find('#main')._uihooks = {
 		insertElement: function (node, next) {
 			$(node)
