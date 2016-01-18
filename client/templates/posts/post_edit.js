@@ -47,7 +47,7 @@ Template.postEdit.events({
 				 throwError('This link has already been posted');
 			}
 			
-			FlowRouter.go('postPage', {_id: result._id});						
+			FlowRouter.go('/posts/:_id', {_id: result._id});						
 		});	
 	},
 	
@@ -57,7 +57,7 @@ Template.postEdit.events({
 		if (confirm("Delete this posts?")) {
 			var currentPostId = Template.instance().id;
 			Posts.remove(currentPostId);
-			FlowRouter.go('home');
+			FlowRouter.go('/');
 		}
 	}
 });

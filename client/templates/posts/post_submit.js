@@ -35,7 +35,7 @@ Template.postSubmit.events({
 				 throwError('This link has already been posted');
 			}
 			
-			FlowRouter.go('postPage', {_id: result._id});						
+			FlowRouter.go('/posts/:_id', {_id: result._id});					
 		});
 	}
 });
