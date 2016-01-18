@@ -1,23 +1,26 @@
 <template name="postPage">
 	{{#if Template.subscriptionsReady}}
-		{{#with post}}
-			<div class="post-page page">
-				{{> postItem}}
-				
-				<ul class="comments">
-					{{#each comments}}
-						{{> commentItem}}
-					{{/each}}
-				</ul>
-				
-				{{#if currentUser}}
-					{{> commentSubmit}}
-				{{else}}
-					<p>Please log in to leave a comment.</p>		
-				{{/if}}
-			</div>
-		{{/with}}
-		{{else}}	
-			{{> loading}}
+		{{#if post}}
+			{{#with post}}
+				<div class="post-page page">
+					{{> postItem}}
+					<ul class="comments">
+						{{#each comments}}
+							{{> commentItem}}
+						{{/each}}
+					</ul>
+					
+					{{#if currentUser}}
+						{{> commentSubmit}}
+					{{else}}
+						<p>Please log in to leave a comment.</p>		
+					{{/if}}
+				</div>
+			{{/with}}
+		{{else}}
+			{{> notFound}}
+		{{/if}}
+	{{else}}	
+		{{> loading}}
 	{{/if}}
 </template>
