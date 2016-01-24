@@ -1,7 +1,3 @@
-Template.app.onCreated(function() {
-	this.subscribe('notifications');
-});
-
 Template.app.onRendered(function() {	
 	this.find('#main')._uihooks = {
 		insertElement: function (node, next) {

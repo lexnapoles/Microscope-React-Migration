@@ -1,5 +1,5 @@
 Template.header.helpers({
-	activeRouteClass: function() {
+	activeRouteClass() {
 		var args = Array.prototype.slice.call(arguments, 0);
 		args.pop();
 		
@@ -8,5 +8,10 @@ Template.header.helpers({
 		});
 		
 		return active && 'active';
+	},
+	
+	NotificationsContainer() {
+		return NotificationsContainer;
 	}
 });
+
