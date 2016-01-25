@@ -1,4 +1,4 @@
-NotificationsContainer = React.createClass({
+NotificationsListContainer = React.createClass({
 	mixins: [ReactMeteorData],
 		
 	getMeteorData() {
@@ -19,7 +19,7 @@ NotificationsContainer = React.createClass({
 	render() {
 		"use strict";
 		return(
-			<NotificationsManager notificationsCount={this.data.notificationsCount} notifications={this.data.notifications} />
+			<NotificationsList notificationsCount={this.data.notificationsCount} notifications={this.data.notifications} />
 		);
 	}
 });

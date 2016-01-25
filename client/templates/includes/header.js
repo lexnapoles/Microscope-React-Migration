@@ -10,8 +10,8 @@ Template.header.helpers({
 		return active && 'active';
 	},
 	
-	NotificationsContainer() {
-		return NotificationsContainer;
+	NotificationsListContainer() {
+		return NotificationsListContainer;
 	}
 });
 
