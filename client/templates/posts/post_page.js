@@ -18,5 +18,11 @@ Template.postPage.helpers({
 	},
 	comments: function() {
 		return Comments.find({postId: Template.instance().id});
+	},
+	CommentsList () {
+		return CommentsList;
+	},
+	CommentSubmit () {
+		return CommentSubmit;
 	}
 });

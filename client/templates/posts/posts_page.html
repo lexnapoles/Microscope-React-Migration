@@ -4,14 +4,14 @@
 			{{#with post}}
 				<div class="post-page page">
 					{{> postItem}}
-					<ul class="comments">
-						{{#each comments}}
-							{{> commentItem}}
-						{{/each}}
+					<ul class="comments">				
+						{{> React component=CommentsList comments=comments}}						
 					</ul>
 					
 					{{#if currentUser}}
-						{{> commentSubmit}}
+						<div>
+							{{> React component=CommentSubmit}}
+						</div>
 					{{else}}
 						<p>Please log in to leave a comment.</p>		
 					{{/if}}
