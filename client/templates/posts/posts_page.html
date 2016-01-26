@@ -3,7 +3,9 @@
 		{{#if post}}
 			{{#with post}}
 				<div class="post-page page">
-					{{> postItem}}
+					<div>
+					{{> React component=Post post=post}}
+					</div>
 					<ul class="comments">				
 						{{> React component=CommentsList comments=comments}}						
 					</ul>

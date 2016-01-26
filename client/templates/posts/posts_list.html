@@ -1,8 +1,10 @@
 <template name="postsList">
 	<div class="posts page">
 		<div class="wrapper">
-			{{#each posts}}
-				{{> postItem}}
+			{{#each post in posts}}
+				<div>
+					{{> React component=Post post=post}}
+				</div>
 			{{/each}}
 		</div>
 		{{#if Template.subscriptionsReady}}

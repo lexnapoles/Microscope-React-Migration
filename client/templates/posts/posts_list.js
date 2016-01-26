@@ -97,10 +97,15 @@ Template.postsList.events({
 	}
 });
 Template.postsList.helpers({
-	posts: function () {
+	posts () {
 		return Template.instance().posts();
 	},
-	hasMorePosts: function () {
+	
+	hasMorePosts () {
 		return Template.instance().posts().count() >= Template.instance().limit.get();
+	},
+	
+	Post () {
+		return Post;
 	}
 });

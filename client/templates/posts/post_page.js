@@ -24,5 +24,9 @@ Template.postPage.helpers({
 	},
 	CommentSubmit () {
 		return CommentSubmit;
+	},
+	
+	Post () {
+		return Post;
 	}
 });
