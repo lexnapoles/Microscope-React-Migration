@@ -1,6 +1,6 @@
 CommentsList = React.createClass({
 	propTypes: {
-		comments: React.PropTypes.object.isRequired
+		comments:  React.PropTypes.array.isRequired
 	},
 		
 	renderComment ({_id, author, submitted, body}) {	

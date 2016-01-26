@@ -17,7 +17,7 @@ Template.postPage.helpers({
 		return Template.instance().post(); 
 	},
 	comments: function() {
-		return Comments.find({postId: Template.instance().id});
+		return Comments.find({postId: Template.instance().id}).fetch();
 	},
 	CommentsList () {
 		return CommentsList;

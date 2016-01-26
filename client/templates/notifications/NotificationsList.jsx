@@ -1,4 +1,9 @@
 NotificationsList = React.createClass({		
+	propTypes: {
+		notificationsCount: React.PropTypes.number,
+		notifications:  React.PropTypes.array
+	},
+	
 	notificationPostPath(postId) {
         return FlowRouter.path("postPage", {_id: postId});
     },
