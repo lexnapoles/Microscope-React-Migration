@@ -33,8 +33,8 @@ NotificationsList = React.createClass({
 	},
 	
 	render() {
-		return (
-			<div className="dropdown">	
+		return (			
+			<li className="dropdown">
 				<a href="#" className="dropdown-toggle" data-toggle="dropdown">
 					Notifications
 					{this.renderNotificationsBadge()}
@@ -45,7 +45,7 @@ NotificationsList = React.createClass({
 					 ? this.props.notifications.map(this.renderNotification)
 					 : <li><span>No Notifications</span></li>}				
 				</ul>
-			</div>
+			</li>
 		);
 	}
 });

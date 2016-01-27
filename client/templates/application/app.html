@@ -1,7 +1,9 @@
 <template name="app">
 		<div class="container">
 			{{#if Template.subscriptionsReady}}
-				{{> header}}
+				<div>
+					{{> React component=Header hasUser=true}}
+				</div>
 			{{else}}
 				{{> loading}}
 			{{/if}}

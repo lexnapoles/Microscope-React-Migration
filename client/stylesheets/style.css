@@ -17,6 +17,10 @@ body {
 	top: 0px;
 	width: 100%;
 }
+
+.accountui {
+	padding-right: 1%;
+}
 .navbar {
 	margin-bottom: 10px; }
 	/* line 32, ../sass/style.scss */

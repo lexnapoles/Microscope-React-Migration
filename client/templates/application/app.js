@@ -15,3 +15,9 @@ Template.app.onRendered(function() {
 		}
 	};
 });
+
+Template.app.helpers({
+	Header () {
+		return Header;
+	}
+});
