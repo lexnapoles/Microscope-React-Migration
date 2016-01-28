@@ -1,4 +1,4 @@
-Header = React.createClass({
+PrivateHeader = React.createClass({
 	propTypes: {
 		hasUser: React.PropTypes.bool.isRequired
 	},
