@@ -7,7 +7,9 @@
 			{{else}}
 				{{> loading}}
 			{{/if}}
-			{{> errors}}
+			<div>
+				{{> React component=ErrorsListContainer}}
+			</div>
 			<div id="main">
 				{{> Template.dynamic template=main}}
 			</div>
