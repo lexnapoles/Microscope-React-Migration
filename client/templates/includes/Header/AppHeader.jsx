@@ -16,7 +16,7 @@ AppHeader = React.createClass({
 						</button>
 						<a className="navbar-brand" href={Helpers.FlowHelpers.pathFor('home')}>Microscope</a>
 					</div>					
-					{this.props.hasUser ? <PrivateHeader /> : <PublicHeader />}					 
+					{this.props.hasUser ? <AuthenticatedHeader /> : <PublicHeader />}					 
 				</div>
 		
 			</nav>
