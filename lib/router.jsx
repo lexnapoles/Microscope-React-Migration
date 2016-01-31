@@ -1,7 +1,7 @@
 FlowRouter.route('/posts/:_id', { 
 	name: 'postPage',
 	action() {
-		ReactLayout.render(App, {main: <PostPage />});
+		ReactLayout.render(App, {main: <PostPageContainer />});
 	}
 });
 
