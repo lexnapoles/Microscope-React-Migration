@@ -8,7 +8,6 @@ ErrorsListContainer = React.createClass({
 			errors: Errors.find().fetch()
 		});
 		
-		console.log(data);
 		return data;
 	},
 	

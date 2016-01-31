@@ -1,8 +1,21 @@
 App = React.createClass({
+	mixins: [ReactMeteorData],
+		
+	getMeteorData() {		
+		let data = {};
+
+		Object.assign(data, {		
+			hasUser: !!Meteor.user()
+		});
+		
+		return data;
+	},
+	
+	
 	render () {
 		return (
 			<div className="container">			
-				<PublicHeader />
+				<AppHeader hasUser={this.data.hasUser} />
 				<ErrorsListContainer />
 		
 				<div id="main">
