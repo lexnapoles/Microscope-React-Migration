@@ -51,22 +51,23 @@ PostEdit = React.createClass({
 	},
 	
 	render () {
-		const post = this.props.post;
+		const post = this.props.post,
+			  sessionName = 'postEditErrors';
 		
 		return (		
 			<form className="main form page" onSubmit={this.editPost}>
-				<div className={"form-group " + this.errorClass('url')}>
+				<div className={"form-group " + ErrorsHelpers.errorClass(sessionName, 'url')}>
 					<label className="control-label" htmlFor="url">URL</label>
 					<div className="controls">
 						<input name="url" ref="url" id="url" type="text" value={post.url} placeholder="Your URL" className="form-control" />
-						<span className="help-block">{this.errorMessage('url')}</span>
+						<span className="help-block">{ErrorsHelpers.errorMessage(sessionName, 'url')}</span>
 					</div>
 				</div>
-				<div className={"form-group " + this.errorClass('title')}>
+				<div className={"form-group " + ErrorsHelpers.errorClass(sessionName, 'title')}>
 					<label className="control-label" htmlFor="title">Title</label>
 					<div className="controls">
 						<input name="title" ref="title" id="title" type="text" value={post.title} placeholder="Name your post" className="form-control" />		
-						<span className="help-block">{this.errorMessage('title')}</span>
+						<span className="help-block">{ErrorsHelpers.errorMessage(sessionName, 'title')}</span>
 					</div>
 				</div>
 				<input type="submit" value="Submit" className="btn btn-primary submit" />
