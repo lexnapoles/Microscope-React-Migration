@@ -33,7 +33,7 @@ PostSubmit = React.createClass({
 	
 	render () {
 		return (				
-				<form className="main form page">
+				<form className="main form page" onSubmit={this.insertPost}>
 					<div className={"form-group " + this.errorClass('url')}>
 						<label className="control-label" htmlFor="url">URL</label>										
 							<div className="controls">
@@ -48,7 +48,7 @@ PostSubmit = React.createClass({
 							<span className="help-block">{this.errorMessage('title')}</span>
 						</div>
 					</div>
-					<input type="submit" value="Submit" className="btn btn-primary" onSubmit={this.insertPost} />
+					<input type="submit" value="Submit" className="btn btn-primary" />
 				</form>
 		)
 	}

@@ -26,7 +26,7 @@ Template.postEdit.events({
 	'submit form': function(e) {
 		e.preventDefault();
 			
-		var currentPostId = Template.instance().id;
+		var currentPostId = this.props.post._id;
 		
 		var postProperties = {
 			url: $(e.target).find('[name=url]').val(),

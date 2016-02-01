@@ -8,7 +8,7 @@ FlowRouter.route('/posts/:_id', {
 FlowRouter.route('/posts/:_id/edit', {
 	name: 'postEdit',
 	action() {
-		ReactLayout.render(App, {main: <PostEdit />});
+		ReactLayout.render(App, {main: <PostEditContainer />});
 	}
 });
 
