@@ -9,7 +9,7 @@ PostPageContainer = React.createClass({
 		
 		if (postHandle.ready() && commentsHandle.ready()) {
 			Object.assign(data, {
-				post: Posts.findOne(id).fetch(),
+				post: Posts.find({_id: id}).fetch(),
 				comments: Comments.find({postId: id}).fetch()
 			});
 		}

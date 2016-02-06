@@ -9,7 +9,7 @@ PostsList = React.createClass({
 		return this.props.posts.map((post) => 
 			(<Post key={post._id} post={post} />)
 		);
-	},
+	},	
 	
 	render () {
 		return (				
