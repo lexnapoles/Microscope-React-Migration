@@ -33,6 +33,7 @@ PostSubmit = React.createClass({
 	
 	render () {
 		const sessionName = 'postSubmitErrors';
+		
 		return (				
 				<form className="main form page" onSubmit={ErrorsHelpers.errorClass(sessionName, 'url')}>
 					<div className={"form-group " + this.errorClass('url')}>

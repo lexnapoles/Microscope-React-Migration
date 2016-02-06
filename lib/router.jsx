@@ -22,14 +22,14 @@ FlowRouter.route('/submit', {
 FlowRouter.route('/', {
 	name: 'home',
 	action() {
-		ReactLayout.render(App, {main: <PostList />});
+		ReactLayout.render(App, {main: <PostListContainer />});
 	}
 });
 
 FlowRouter.route('/new', { 
 	name: 'newPosts',
 	action() {
-		ReactLayout.render(App, {main: <PostList />});
+		ReactLayout.render(App, {main: <PostListContainer />});
 	}
 
 });
@@ -37,7 +37,7 @@ FlowRouter.route('/new', {
 FlowRouter.route('/best', { 
 	name: 'bestPosts',
 	action() {
-		ReactLayout.render(App, {main: <PostList />});
+		ReactLayout.render(App, {main: <PostListContainer />});
 	}
 });
 

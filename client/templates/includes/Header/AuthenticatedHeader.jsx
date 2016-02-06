@@ -1,4 +1,4 @@
-PrivateHeader = React.createClass({
+AuthenticatedHeader = React.createClass({
 	render () {
 		return (
 			<div className="collapse navbar-collapse" id="navigation">
