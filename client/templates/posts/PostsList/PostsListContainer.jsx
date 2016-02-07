@@ -41,8 +41,8 @@ PostListContainer = React.createClass({
 	},
 	
 	render () {		
-		return (this.data.postsReady)
+		return this.data.postsReady
 				? <PostsList posts={this.data.posts} hasMorePosts={this.data.hasMorePosts} loadMore={this.props.loadMore} />
-				: <SpinnerView /> 			
+				: <SpinnerView />; 			
 	}
 });

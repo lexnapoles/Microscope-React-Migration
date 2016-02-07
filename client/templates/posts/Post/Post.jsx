@@ -1,6 +1,6 @@
 Post = React.createClass({
 	propTypes: {
-		post:  React.PropTypes.object
+		post:  React.PropTypes.object.isRequired
 	},
 	
 	ownPost () {	

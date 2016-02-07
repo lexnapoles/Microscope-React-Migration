@@ -1,4 +1,4 @@
-Meteor.startup(function () {
+/*Meteor.startup(function () {
 	Meteor.subscribe("newFivePosts");
 });
 
@@ -109,3 +109,4 @@ Template.postsList.helpers({
 		return Post;
 	}
 });
+*/

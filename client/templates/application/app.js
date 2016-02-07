@@ -1,4 +1,4 @@
-Template.app.onRendered(function() {	
+/*Template.app.onRendered(function() {	
 	this.find('#main')._uihooks = {
 		insertElement: function (node, next) {
 			$(node)
@@ -14,10 +14,4 @@ Template.app.onRendered(function() {
 			});
 		}
 	};
-});
-
-Template.app.helpers({
-	PublicHeader () {
-		return PublicHeader;
-
-});
+});*/

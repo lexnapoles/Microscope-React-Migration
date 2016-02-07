@@ -1,11 +1,12 @@
 PostPage = React.createClass({
 	propTypes: {
-		post: React.PropTypes.object.isRequired,
-		comments: React.PropTypes.array.isRequired
+		post: React.PropTypes.object,
+		comments: React.PropTypes.array,
+		hasPost: React.PropTypes.number.isRequired
 	},
 	
-	render () {
-		return (				
+	renderPostAndComments ()  {
+		return (
 			<div className="post-page page">				
 				<Post post={this.props.post} />				
 				<ul className="comments">				
@@ -17,5 +18,12 @@ PostPage = React.createClass({
 				 :	<p>Please log in to leave a comment.</p>}
 			</div>
 		);
+	},
+	
+	render () {
+		return this.props.hasPost
+				? this.renderPostAndComments()
+				: <NotFound />;
+		
 	}
 });
