@@ -19,5 +19,5 @@ Template.app.onRendered(function() {
 Template.app.helpers({
 	PublicHeader () {
 		return PublicHeader;
-	}
+
 });

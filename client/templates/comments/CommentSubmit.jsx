@@ -38,7 +38,7 @@ CommentSubmit = React.createClass({
 	render () {
 		return (
 		 	<form name="comment" className="comment-form form" onSubmit={this.submitForm}>				
-				<div className="form-group {this.errorClass('body')}">
+				<div className={"form-group " + this.errorClass('body')}>
 					<div className="controls">					
 						<label htmlFor="body">Comment on this post</label>
 						<textarea name="body" ref="body" id="body" className="form-control" rows="3"></textarea>

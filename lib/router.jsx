@@ -1,35 +1,35 @@
 FlowRouter.route('/posts/:_id', { 
 	name: 'postPage',
 	action() {
-		BlazeLayout.render('app', {main: 'postPage'});
+		ReactLayout.render(App, {main: <PostPageContainer />});
 	}
 });
 
 FlowRouter.route('/posts/:_id/edit', {
 	name: 'postEdit',
 	action() {
-		BlazeLayout.render('app', {main: 'postEdit'});
+		ReactLayout.render(App, {main: <PostEditContainer />});
 	}
 });
 
 FlowRouter.route('/submit', {
 	name: 'postSubmit',
 	action() {
-		BlazeLayout.render('app', {main: 'postSubmit'});
+		ReactLayout.render(App, {main: <PostSubmit />});
 	}
 });
 
 FlowRouter.route('/', {
 	name: 'home',
 	action() {
-		BlazeLayout.render('app', {main: 'postsList'});
+		ReactLayout.render(App, {main: <Pagination />});
 	}
 });
 
 FlowRouter.route('/new', { 
 	name: 'newPosts',
 	action() {
-		BlazeLayout.render('app', {main: 'postsList'});
+		ReactLayout.render(App, {main: <Pagination />});
 	}
 
 });
@@ -37,12 +37,12 @@ FlowRouter.route('/new', {
 FlowRouter.route('/best', { 
 	name: 'bestPosts',
 	action() {
-		BlazeLayout.render('app', {main: 'postsList'});
+		ReactLayout.render(App, {main: <Pagination />});
 	}
 });
 
 FlowRouter.notFound = {
 	action() {
-		BlazeLayout.render('app', {main: 'notFound'});
+		ReactLayout.render(App, {main: <NotFound />});
 	}
 };
