@@ -15,7 +15,7 @@ FlowRouter.route('/posts/:_id/edit', {
 FlowRouter.route('/submit', {
 	name: 'postSubmit',
 	action() {
-		ReactLayout.render(App, {main: <PostSubmit />});
+		ReactLayout.render(App, {main: <PostSubmitContainer />});
 	}
 });
 

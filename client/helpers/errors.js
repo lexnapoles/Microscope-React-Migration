@@ -9,7 +9,7 @@ ErrorsHelpers = (() => {
 		return Session.get(sessionName)[field];
 	};
 
-	const errorClass = function (field) {
+	const errorClass = function (sessionName, field) {			
 		return !!Session.get(sessionName)[field] ? 'has-error' : '';
 	};
 	
