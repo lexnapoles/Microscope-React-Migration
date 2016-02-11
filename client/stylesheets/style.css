@@ -95,6 +95,11 @@ transition: none; }
 	line-height: 20px;
 	color: #bbb;
 	white-space: nowrap; }
+
+.spinner {
+	padding-top: 10%;
+}
+
 .load-more {
 	display: block;
 	border-radius: 3px;
