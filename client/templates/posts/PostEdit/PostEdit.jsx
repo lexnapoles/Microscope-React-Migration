@@ -1,58 +1,33 @@
 PostEdit = React.createClass({
 	propTypes: {
-		post:  React.PropTypes.object.isRequired
+		post: React.PropTypes.object.isRequired,
+		editPost: React.PropTypes.func.isRequired,
+		deletePost: React.PropTypes.func.isRequired
 	},
 
-	componentDidMount () {
-		Session.set('postEditErrors', {});
-	},
-	
-	errorMessage: function(field) {
-		return Session.get('postEditErrors')[field];
-	},
-	
-	errorClass: function (field) {
-		return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
-	},
-	
-	editPost (event) {		
-		event.preventDefault();
+	editPost (e) {		
+		e.preventDefault();
 			
-		const currentPostId = this.props.post._id,
-			  postProperties = {						
-				url: this.refs.url.value,
-				title: this.refs.title.value
-			  },
-			  errors = validatePost(postProperties);
+		const postId = this.props.post._id,			
+		      post = Object.assign({}, {
+					url: this.refs.url.value,
+					title: this.refs.title.value
+				});
 		
-		if (errors.title || errors.url) {
-			return Session.set('postEditErrors', errors);
-		}
-		
-		Meteor.call('postEdit', currentPostId, postProperties, function(error, result) {
-			if (error) {
-				return throwError(error.reason);
-			}
-			
-			if (result.postExists) {
-				 throwError('This link has already been posted');
-			}
-			
-			FlowRouter.go('/posts/:_id', {_id: result._id});						
-		});	
+		this.props.editPost(postId, post);
 	},
 	
-	deletePost (event) {
+	deletePost (e) {
+		e.preventDefault();
+	
 		if (confirm("Delete this posts?")) {
-			const currentPostId = this.props.post._id;
-			Posts.remove(currentPostId);
-			FlowRouter.go('/');
+			this.props.deletePost(this.props.post._id)
 		}
 	},
 	
 	render () {
 		const post = this.props.post,
-			  sessionName = 'postEditErrors';
+			  sessionName = this.props.sessionName;
 		
 		return (		
 			<form className="main form page" onSubmit={this.editPost}>
@@ -63,7 +38,7 @@ PostEdit = React.createClass({
 						<span className="help-block">{ErrorsHelpers.errorMessage(sessionName, 'url')}</span>
 					</div>
 				</div>
-				<div className={"form-group " + ErrorsHelpers.errorClass(sessionName, 'title')}>
+				<div className={"form-group " + ErrorsHelpers.errorClass(this.props.sessionName, 'title')}>
 					<label className="control-label" htmlFor="title">Title</label>
 					<div className="controls">
 						<input name="title" ref="title" id="title" type="text" value={post.title} placeholder="Name your post" className="form-control" />		

@@ -4,7 +4,8 @@ Post = React.createClass({
 	},
 	
 	ownPost () {	
-		return this.userId === Meteor.userId();
+		//return this.userId === Meteor.userId();
+		return true;
 	},
 	
 	domain () {
@@ -49,7 +50,7 @@ Post = React.createClass({
 					  submitted by {post.author} 					 
 					  <a href={Helpers.FlowHelpers.pathFor('postPage', { _id : postId})}> {Helpers.pluralize(post.commentsCount, "comment")}</a>
 					  {this.ownPost() 
-						? <a href={Helpers.FlowHelpers.pathFor("postEdit", { _id : postId})}>Edit</a>
+						? <a href={Helpers.FlowHelpers.pathFor("postEdit", { _id : postId})}>  Edit</a>
 						: ""}
 					</p>
 				</div>
