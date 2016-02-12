@@ -54,6 +54,6 @@ PostEditContainer = React.createClass({
 	render () {
 		return this.data.postReady 
 				? <PostEdit post={this.data.post} sessionName={this.data.sessionName} editPost={this.editPost} deletePost={this.deletePost} />
-				: <div className="spinner"><SpinnerView /></div>;
+				: <Loading />
 	}
 });

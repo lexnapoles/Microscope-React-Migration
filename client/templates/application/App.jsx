@@ -20,10 +20,6 @@ App = React.createClass({
 		return data;
 	},
 	
-	loading () {
-		return <div className="spinner"><SpinnerView /></div>;
-	},
-	
 	getView () {
 		return this.data.canView() 
 				? this.props.main 
@@ -37,7 +33,7 @@ App = React.createClass({
 				<ErrorsListContainer />
 		
 				<div id="main">
-					{this.data.loggingIn ? this.loading() : this.getView()}
+					{this.data.loggingIn ? <Loading /> : this.getView()}
 				</div>
 			</div>
 		)

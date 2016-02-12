@@ -37,8 +37,6 @@ PostSubmitContainer = React.createClass({
 	},
 	
 	render () {		
-		return (				
-				<PostSubmit sessionName={this.data.sessionName} insertPost={this.insertPost} />
-		)
+		return <PostSubmit sessionName={this.data.sessionName} insertPost={this.insertPost} />;		
 	}
 });

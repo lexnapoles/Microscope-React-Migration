@@ -28,6 +28,6 @@ PostPageContainer = React.createClass({
 	render () {
 		return this.data.postReady && this.data.commentsReady
 				? <PostPage post={this.data.post} hasPost={this.data.hasPost} comments={this.data.comments} />
-				: <SpinnerView />;
+				: <Loading />
 	}
 });
