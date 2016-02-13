@@ -30,6 +30,7 @@ PostListContainer = React.createClass({
 			Object.assign(data, {
 				posts: Posts.find({}, postsOptions).fetch(),
 				hasMorePosts: Posts.find({}, postsOptions).count() >= limit,
+				hasUser: AuthHelpers.hasUser()
 			});														
 		}
 			

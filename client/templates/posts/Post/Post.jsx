@@ -2,12 +2,7 @@ Post = React.createClass({
 	propTypes: {
 		post:  React.PropTypes.object.isRequired
 	},
-	
-	ownPost () {	
-		//return this.userId === Meteor.userId();
-		return true;
-	},
-	
+
 	domain () {
 		const a = React.createElement("a");
 		a.href = this.url;
@@ -48,13 +43,13 @@ Post = React.createClass({
 					<p>
 					  {Helpers.pluralize(post.votes, "Vote")},
 					  submitted by {post.author} 					 
-					  <a href={Helpers.FlowHelpers.pathFor('postPage', { _id : postId})}> {Helpers.pluralize(post.commentsCount, "comment")}</a>
-					  {this.ownPost() 
-						? <a href={Helpers.FlowHelpers.pathFor("postEdit", { _id : postId})}>  Edit</a>
+					  <a href={FlowHelpers.pathFor('postPage', { _id : postId})}> {Helpers.pluralize(post.commentsCount, "comment")}</a>
+					  {AuthHelpers.ownPost(this.props.post.userId) 
+						? <a href={FlowHelpers.pathFor("postEdit", { _id : postId})}>  Edit</a>
 						: ""}
 					</p>
 				</div>
-				<a href={Helpers.FlowHelpers.pathFor("postPage", { _id : postId})} className="discuss btn btn-default">Discuss</a>
+				<a href={FlowHelpers.pathFor("postPage", { _id : postId})} className="discuss btn btn-default">Discuss</a>
 			</div>
 		);	
 	}

@@ -51,9 +51,15 @@ PostEditContainer = React.createClass({
 		FlowRouter.go('/');		
 	},
 	
+	getView () {
+		return AuthHelpers.ownPost(this.data.post.userId)
+			? <PostEdit post={this.data.post} sessionName={this.data.sessionName} editPost={this.editPost} deletePost={this.deletePost} />
+			: <AccessDenied message={"You are not the author of this post"}/>;		
+	},
+	
 	render () {
 		return this.data.postReady 
-				? <PostEdit post={this.data.post} sessionName={this.data.sessionName} editPost={this.editPost} deletePost={this.deletePost} />
+				? this.getView()
 				: <Loading />
 	}
 });

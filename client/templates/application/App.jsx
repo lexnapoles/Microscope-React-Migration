@@ -5,8 +5,8 @@ App = React.createClass({
 		let data = {};
 
 		Object.assign(data, {		
-			loggingIn: Meteor.loggingIn(),
-			hasUser: !!Meteor.user(),
+			loggingIn: AuthHelpers.loggingIn(),
+			hasUser: AuthHelpers.hasUser(),
 			isPublic (route) {
 				let publicRoutes = ['home', 'newPosts','bestPosts', 'postPage'];
 				

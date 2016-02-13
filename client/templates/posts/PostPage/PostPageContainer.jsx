@@ -11,7 +11,8 @@ PostPageContainer = React.createClass({
 			
 		Object.assign(data, {
 			postReady: postReady,
-			commentsReady: commentsReady
+			commentsReady: commentsReady,
+			hasUser: AuthHelpers.hasUser()
 		});
 
 		if (postReady && commentsReady) {
