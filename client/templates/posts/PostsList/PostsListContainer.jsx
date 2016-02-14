@@ -18,8 +18,7 @@ PostListContainer = React.createClass({
 			sortOptions = FlowRouter.getRouteName() === "bestPosts" ? this.state.bestPosts : this.state.newPosts,
 			limit = this.props.limit,
 			subOptions = this.options(sortOptions, limit),
-			postsHandle = Meteor.subscribe('posts', subOptions);
-			postsReady = postsHandle.ready();
+			postsReady = Meteor.subscribe('posts', subOptions).ready();
 
 		data.postsReady = postsReady;
 		
@@ -30,7 +29,8 @@ PostListContainer = React.createClass({
 			Object.assign(data, {
 				posts: Posts.find({}, postsOptions).fetch(),
 				hasMorePosts: Posts.find({}, postsOptions).count() >= limit,
-				hasUser: AuthHelpers.hasUser()
+				hasUser: AuthHelpers.hasUser(),
+				previousRoute: FlowRouter.getRouteName()
 			});														
 		}
 			
@@ -40,10 +40,8 @@ PostListContainer = React.createClass({
 	options (sortOptions, limit) {
 		return Object.assign(sortOptions, {limit: limit})
 	},
-	
+
 	render () {		
-		return this.data.postsReady
-				? <PostsList posts={this.data.posts} hasMorePosts={this.data.hasMorePosts} loadMore={this.props.loadMore} />
-				: <Loading />	
+		return <PostsList posts={this.data.posts} hasMorePosts={this.data.hasMorePosts} loadMore={this.props.loadMore} isReady={this.data.postsReady} />;				
 	}
 });
