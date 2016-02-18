@@ -28,7 +28,7 @@ PostPageContainer = React.createClass({
 	
 	render () {
 		return this.data.postReady && this.data.commentsReady
-				? <PostPage post={this.data.post} hasPost={this.data.hasPost} comments={this.data.comments} />
+				? <PostPage post={this.data.post} hasPost={this.data.hasPost} hasUser={this.data.hasUser} comments={this.data.comments} />
 				: <Loading />
 	}
 });

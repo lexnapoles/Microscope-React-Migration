@@ -41,16 +41,6 @@ body {
 	clear: both; }
 .post.invisible {
 	opacity: 0; }
-.post.instant {
-	-webkit-transition: none;
-	-moz-transition: none;
-	-o-transition: none;
-transition: none; }
-.post.animate{
-	-webkit-transition: all 300ms 0ms;
-	-moz-transition: all 300ms 0ms ease-in;
-	-o-transition: all 300ms 0ms ease-in;
-	transition: all 300ms 0ms ease-in; }
 .post .upvote {
 	display: block;
 	margin: 7px 12px 0 0;
@@ -153,4 +143,23 @@ transition: none; }
 	clear: both;
 	margin-bottom: 5px;
 	pointer-events: auto;
+}
+
+.postAnimation-enter {
+  opacity: 0.01;
+}
+
+.postAnimation-enter.postAnimation-enter-active {
+  opacity: 1;
+  transition: all 700ms 0ms ease-in;
+}
+
+.postAnimation-leave {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.postAnimation-leave.postAnimation-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
 }

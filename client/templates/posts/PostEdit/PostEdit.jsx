@@ -5,8 +5,8 @@ PostEdit = React.createClass({
 		deletePost: React.PropTypes.func.isRequired
 	},
 
-	editPost (e) {		
-		e.preventDefault();
+	editPost (event) {		
+		event.preventDefault();
 			
 		const postId = this.props.post._id,			
 		      post = Object.assign({}, {
@@ -17,10 +17,10 @@ PostEdit = React.createClass({
 		this.props.editPost(postId, post);
 	},
 	
-	deletePost (e) {
-		e.preventDefault();
+	deletePost (event) {
+		event.preventDefault();
 	
-		if (confirm("Delete this posts?")) {
+		if (confirm("Delete this posts?")) {		
 			this.props.deletePost(this.props.post._id)
 		}
 	},
@@ -34,14 +34,14 @@ PostEdit = React.createClass({
 				<div className={"form-group " + ErrorsHelpers.errorClass(sessionName, 'url')}>
 					<label className="control-label" htmlFor="url">URL</label>
 					<div className="controls">
-						<input name="url" ref="url" id="url" type="text" value={post.url} placeholder="Your URL" className="form-control" />
+						<input name="url" ref="url" id="url" type="text" placeholder={post.url ? post.url : "Your URL"} className="form-control" />
 						<span className="help-block">{ErrorsHelpers.errorMessage(sessionName, 'url')}</span>
 					</div>
 				</div>
 				<div className={"form-group " + ErrorsHelpers.errorClass(this.props.sessionName, 'title')}>
 					<label className="control-label" htmlFor="title">Title</label>
 					<div className="controls">
-						<input name="title" ref="title" id="title" type="text" value={post.title} placeholder="Name your post" className="form-control" />		
+						<input name="title" ref="title" id="title" type="text" placeholder={post.title ? post.title : "Name your post"} className="form-control" />		
 						<span className="help-block">{ErrorsHelpers.errorMessage(sessionName, 'title')}</span>
 					</div>
 				</div>

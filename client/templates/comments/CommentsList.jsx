@@ -8,7 +8,7 @@ CommentsList = React.createClass({
 			<li key={_id}>
 				<h4>
 					<span className="author">{author}</span>
-					<span className="date">on {submitted.toString()}</span>
+					<span className="date">  on {submitted.toString()}</span>
 				</h4>
 				<p>{body}</p>
 			</li>

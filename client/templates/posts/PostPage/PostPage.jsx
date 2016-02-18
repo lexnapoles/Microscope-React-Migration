@@ -13,8 +13,8 @@ PostPage = React.createClass({
 					<CommentsList comments={this.props.comments} />						
 				</ul>
 				
-				{Meteor.userId()
-				 ?	<CommentSubmit />
+				{this.props.hasUser
+				 ?	<CommentSubmitContainer />
 				 :	<p>Please log in to leave a comment.</p>}
 			</div>
 		);
