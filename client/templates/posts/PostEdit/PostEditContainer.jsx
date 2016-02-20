@@ -53,28 +53,35 @@ PostEditContainer = React.createClass({
 		Session.set(formDataSessionName, formData);
 	},
 	
+	isValidPost (post) {
+		const errors = validatePost(post);
+			
+		if (errors.title || errors.url) {
+			Session.set(this.state.errorsSessionName, errors);
+			return false;
+		}
+				
+		return true;
+	},
+	
 	editPost (event) {		
 		event.preventDefault();
 			
 		const post = this.data.formData;			  
 
-		errors = validatePost(post);
-		
-		if (errors.title || errors.url) {
-			return Session.set(this.state.errorsSessionName, errors);
+		if (this.isValidPost(post)) {
+			Meteor.call('postEdit', this.state.postId, post, function(error, result) {
+				if (error) {
+					return throwError(error.reason);
+				}
+				
+				if (result.postExists) {
+					 throwError('This link has already been posted');
+				}
+				
+				FlowRouter.go('/posts/:_id', {_id: result._id});						
+			});	
 		}
-		
-		Meteor.call('postEdit', this.state.postId, post, function(error, result) {
-			if (error) {
-				return throwError(error.reason);
-			}
-			
-			if (result.postExists) {
-				 throwError('This link has already been posted');
-			}
-			
-			FlowRouter.go('/posts/:_id', {_id: result._id});						
-		});	
 	},
 	
 	deletePost (event) {
