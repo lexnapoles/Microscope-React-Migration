@@ -1,4 +1,11 @@
 PostSubmit = React.createClass({
+	propTypes: {
+		insertPost: React.PropTypes.func.isRequired,
+		formData: React.PropTypes.object.isRequired,
+		onChange: React.PropTypes.func.isRequired,
+		errors: React.PropTypes.object
+	},
+	
 	onSubmit (e) {
 		e.preventDefault();
 		
@@ -12,23 +19,28 @@ PostSubmit = React.createClass({
 	
 	render () {		
 		return (				
-				<form className="main form page" onSubmit={this.onSubmit}>
-					<div className={"form-group " + ErrorsHelpers.errorClass(this.props.sessionName, 'url')}>
-						<label className="control-label" htmlFor="url">URL</label>										
-							<div className="controls">
-								<input name="url" ref="url" id="url" type="text"  placeholder="Write the url of the post" className="form-control" />				
-								<span className="help-block">{ ErrorsHelpers.errorMessage(this.props.sessionName, 'url')}</span>
-							</div>																
-					</div>
-					<div className={"form-group " + ErrorsHelpers.errorClass(this.props.sessionName, 'title')}>
-						<label className="control-label" htmlFor="title">Title</label>
-						<div className="controls">
-							<input name="title" ref="title" id="title" type="text" placeholder="Name your post" className="form-control" />				
-							<span className="help-block">{ErrorsHelpers.errorMessage(this.props.sessionName, 'title')}</span>
-						</div>
-					</div>
-					<input type="submit" value="Submit" className="btn btn-primary" />
+				<form className="main form page">
+					<Input
+						name="url"
+						label="URL"
+						onChange={this.props.onChange}
+						value={this.props.formData.url}
+						error={this.props.errors.url} />
+					<br />
+				
+					<Input
+						name="title"
+						label="Title"
+						onChange={this.props.onChange}
+						value={this.props.formData.title}
+						error={this.props.errors.title} />
+				
+					<input type="submit" value="Submit" className="btn btn-primary submit" onClick={this.insertPost}/>		
+					
+					
 				</form>
+				
+				
 		)
 	}
 });

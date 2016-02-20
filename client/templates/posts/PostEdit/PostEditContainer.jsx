@@ -2,7 +2,7 @@ PostEditContainer = React.createClass({
 	getInitialState () {
 		return {
 			errorsSessionName: 'postEditErrors',
-			formDataSessionName: 'formData',
+			formDataSessionName: 'editFormData',
 			postId: FlowRouter.getParam("_id")
 		};
 	},

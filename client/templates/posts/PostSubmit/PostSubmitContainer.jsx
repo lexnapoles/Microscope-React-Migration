@@ -1,31 +1,16 @@
 PostSubmitContainer = React.createClass({
 	getInitialState () {
 		return {
-			submitErrorsSessionName: 'postSubmitErrors'
+			formData: { url: '', title: '' },
+			errors: {}
 		};
 	},
-
-	componentWillMount () {
-		Session.set(this.state.submitErrorsSessionName, {});
-	},
 	
-	mixins: [ReactMeteorData],
-	
-	getMeteorData () {					
-		let data = {};
+	insertPost (post) {		
+		const errors = validatePost(post);
 		
-		Object.assign(data, {
-			session: Session.get(this.state.submitErrorsSessionName)
-		});
-		
-		return data;
-	},
-	
-	insertPost (post) {
-		
-		var errors = validatePost(post);
 		if (errors.title || errors.url) {		
-			return Session.set(this.state.submitErrorsSessionName, errors);
+			this.setState({errors: errors});
 		}
 		
 		Meteor.call('postInsert', post, function(error, result) {
@@ -41,7 +26,15 @@ PostSubmitContainer = React.createClass({
 		});
 	},
 	
+	setFormData (event) {	
+		const field = event.target.name,
+			  value = event.target.value;
+
+        this.state.formData[field] = value;
+        return this.setState({formData: this.state.formData});
+	},
+	
 	render () {		
-		return <PostSubmit sessionName={this.state.submitErrorsSessionName} insertPost={this.insertPost} />;		
+		return <PostSubmit insertPost={this.insertPost} errors={this.state.errors} onChange={this.setFormData} formData={this.state.formData}/>;		
 	}
 });
