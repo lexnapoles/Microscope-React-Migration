@@ -11,14 +11,14 @@ PostPageContainer = React.createClass({
 			
 		Object.assign(data, {
 			postReady: postReady,
-			commentsReady: commentsReady,
-			hasUser: AuthHelpers.hasUser()
+			commentsReady: commentsReady			
 		});
 
 		if (postReady && commentsReady) {
 			Object.assign(data, {
 				post: Posts.findOne(id),
 				hasPost:  Posts.find({_id: id}).count(),
+				hasUser: AuthHelpers.hasUser(),
 				comments: Comments.find({postId: id}).fetch()
 			});
 		}

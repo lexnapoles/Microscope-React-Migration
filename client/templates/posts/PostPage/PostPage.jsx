@@ -1,8 +1,9 @@
 PostPage = React.createClass({
 	propTypes: {
+		hasUser: React.PropTypes.bool.isRequired,
+		hasPost: React.PropTypes.number.isRequired,
 		post: React.PropTypes.object,
-		comments: React.PropTypes.array,
-		hasPost: React.PropTypes.number.isRequired
+		comments: React.PropTypes.array
 	},
 	
 	renderPostAndComments ()  {
