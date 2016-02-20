@@ -2,7 +2,8 @@ PostEditContainer = React.createClass({
 	getInitialState () {
 		return {
 			errorsSessionName: 'postEditErrors',
-			formDataSessionName: 'formData'
+			formDataSessionName: 'formData',
+			postId: FlowRouter.getParam("_id")
 		};
 	},
 	
@@ -14,18 +15,15 @@ PostEditContainer = React.createClass({
 	mixins: [ReactMeteorData],
 		
 	getMeteorData () {				
-		const id = FlowRouter.getParam("_id");
-
 		let data = {},
-			postHandle = Meteor.subscribe('singlePost', id),
+			postHandle = Meteor.subscribe('singlePost', this.state.postId),
 			postReady = postHandle.ready(),	
-			post = Posts.findOne(id);
+			post = Posts.findOne(this.state.postId);
 			
 		if (postReady) {
 			this.setInitialFormData(post); 
 			
-			Object.assign(data, {
-				id: id,
+			Object.assign(data, {			
 				post: post,
 				postReady: postReady,
 				errors: Session.get(this.state.errorsSessionName),
@@ -65,7 +63,7 @@ PostEditContainer = React.createClass({
 			return Session.set(this.state.errorsSessionName, errors);
 		}
 		
-		Meteor.call('postEdit', this.data.id, post, function(error, result) {
+		Meteor.call('postEdit', this.state.postId, post, function(error, result) {
 			if (error) {
 				return throwError(error.reason);
 			}
@@ -82,7 +80,7 @@ PostEditContainer = React.createClass({
 		event.preventDefault();
 	
 		if (confirm("Delete this posts?")) {		
-			Posts.remove(this.data.id);
+			Posts.remove(this.state.postId);
 			FlowRouter.go('/');		
 		}
 	},
