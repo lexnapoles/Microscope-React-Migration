@@ -35,10 +35,11 @@ PostEditContainer = React.createClass({
 	},
 		
 	setInitialFormData (post) {
-		const session = Session.get(this.state.formDataSessionName);
+		const formDataSessionName = this.state.formDataSessionName,
+			  session = Session.get(formDataSessionName);
 		
 		if (session.url.length === 0 && session.title.length === 0) {
-			Session.set('formData', { url: post.url, title: post.title})
+			Session.set(formDataSessionName, { url: post.url, title: post.title})
 		}
 	},
 	

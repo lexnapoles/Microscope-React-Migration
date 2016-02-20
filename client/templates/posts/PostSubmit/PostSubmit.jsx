@@ -6,17 +6,6 @@ PostSubmit = React.createClass({
 		errors: React.PropTypes.object
 	},
 	
-	onSubmit (e) {
-		e.preventDefault();
-		
-		const post = Object.assign({}, {
-			url: this.refs.url.value,
-			title: this.refs.title.value		
-		});
-				
-		this.props.insertPost(post);
-	},
-	
 	render () {		
 		return (				
 				<form className="main form page">
@@ -35,12 +24,8 @@ PostSubmit = React.createClass({
 						value={this.props.formData.title}
 						error={this.props.errors.title} />
 				
-					<input type="submit" value="Submit" className="btn btn-primary submit" onClick={this.insertPost}/>		
-					
-					
-				</form>
-				
-				
+					<input type="submit" value="Submit" className="btn btn-primary submit" onClick={this.props.insertPost}/>											
+				</form>							
 		)
 	}
 });

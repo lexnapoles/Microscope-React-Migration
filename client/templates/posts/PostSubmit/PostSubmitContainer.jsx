@@ -6,24 +6,35 @@ PostSubmitContainer = React.createClass({
 		};
 	},
 	
-	insertPost (post) {		
+	insertPost (event) {		
+		event.preventDefault();
+		
+		const post = this.state.formData;
+		
+		if (this.isValidPost(post)) {
+			Meteor.call('postInsert', post, function(error, result) {
+				if (error) {
+					return throwError(error.reason);
+				}
+				
+				if (result.postExists) {
+					 throwError('This link has already been posted');
+				}
+				
+				FlowRouter.go('/posts/:_id', {_id: result._id});					
+			});
+		}
+	},
+	
+	isValidPost (post) {
 		const errors = validatePost(post);
 		
 		if (errors.title || errors.url) {		
 			this.setState({errors: errors});
+			return false;
 		}
 		
-		Meteor.call('postInsert', post, function(error, result) {
-			if (error) {
-				return throwError(error.reason);
-			}
-			
-			if (result.postExists) {
-				 throwError('This link has already been posted');
-			}
-			
-			FlowRouter.go('/posts/:_id', {_id: result._id});					
-		});
+		return true;
 	},
 	
 	setFormData (event) {	
