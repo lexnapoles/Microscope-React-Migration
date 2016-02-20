@@ -8,6 +8,9 @@ PostEdit = React.createClass({
 	},
 	
 	render () {
+		console.log(this.props.formData.url);
+		console.log(this.props.formData.title);
+		
 		return (		
 			<form className="main form page">
 				<Input

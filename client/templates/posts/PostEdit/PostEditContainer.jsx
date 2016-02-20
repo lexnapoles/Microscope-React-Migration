@@ -1,66 +1,71 @@
 PostEditContainer = React.createClass({
-	componentWillMount () {
-		Session.set('postEditErrors', {});
-		Session.set('formData', { url: '', title: '' });
-	},
-
 	getInitialState () {
 		return {
-			setOnceInitialFormInfo: _.once((post) => Session.set('formData', { url: post.url, title: post.title}))
+			errorsSessionName: 'postEditErrors',
+			formDataSessionName: 'formData'
 		};
 	},
 	
+	componentWillMount () {
+		Session.set(this.state.errorsSessionName, {});
+		Session.set(this.state.formDataSessionName, { url: '', title: '' });
+	},
+
 	mixins: [ReactMeteorData],
 		
-	getMeteorData () {		
-		
-		const id = FlowRouter.getParam("_id"),
-			  errorsSessionName = 'postEditErrors',
-			  formDataSessionName = 'formData';
-			  
+	getMeteorData () {				
+		const id = FlowRouter.getParam("_id");
+
 		let data = {},
 			postHandle = Meteor.subscribe('singlePost', id),
 			postReady = postHandle.ready(),	
 			post = Posts.findOne(id);
 			
 		if (postReady) {
-			this.state.setOnceInitialFormInfo(post);
+			this.setInitialFormData(post); 
 			
 			Object.assign(data, {
+				id: id,
 				post: post,
 				postReady: postReady,
-				errorsSessionName: errorsSessionName,
-				formDataSessionName: formDataSessionName,
-				errors: Session.get(errorsSessionName),
-				formData: Session.get(formDataSessionName)
+				errors: Session.get(this.state.errorsSessionName),
+				formData: Session.get(this.state.formDataSessionName)
 			});
 		}
 
 		return data;
 	},
 		
+	setInitialFormData (post) {
+		const session = Session.get(this.state.formDataSessionName);
+		
+		if (session.url.length === 0 && session.title.length === 0) {
+			Session.set('formData', { url: post.url, title: post.title})
+		}
+	},
+	
 	setFormData (event) {
 		const field = event.target.name,
 		      value = event.target.value,
-			  formData = Session.get(this.data.formDataSessionName);
+			  formDataSessionName  = this.state.formDataSessionName,
+			  formData = Session.get(formDataSessionName);
 			
 		formData[field] = value;
-		Session.set(this.data.formDataSessionName, formData);
+		Session.set(formDataSessionName, formData);
 	},
 	
 	editPost (event) {		
 		event.preventDefault();
 			
-		const postId = FlowRouter.getParam("_id"),
-			  post = this.data.formData;
+		const post = this.data.formData;			  
 
 		errors = validatePost(post);
 		
 		if (errors.title || errors.url) {
-			return Session.set(this.data.errorsSessionName, errors);
+			return Session.set(this.state.errorsSessionName, errors);
 		}
 		
-		Meteor.call('postEdit', postId, post, function(error, result) {
+		Meteor.call('postEdit', this.data.id, post, function(error, result) {
 			if (error) {
 				return throwError(error.reason);
 			}
@@ -77,9 +82,7 @@ PostEditContainer = React.createClass({
 		event.preventDefault();
 	
 		if (confirm("Delete this posts?")) {		
-			const postId = FlowRouter.getParam("_id");
-		
-			Posts.remove(postId);
+			Posts.remove(this.data.id);
 			FlowRouter.go('/');		
 		}
 	},
