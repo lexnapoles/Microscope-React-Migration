@@ -1,36 +1,58 @@
 PostEditContainer = React.createClass({
 	componentWillMount () {
 		Session.set('postEditErrors', {});
+		Session.set('formData', { url: '', title: '' });
 	},
-		
+
+	getInitialState () {
+		return {
+			setOnceInitialFormInfo: _.once((post) => Session.set('formData', { url: post.url, title: post.title}))
+		};
+	},
+	
 	mixins: [ReactMeteorData],
 		
 	getMeteorData () {		
-		let data = {},
-			id = FlowRouter.getParam("_id"),
-			postHandle = Meteor.subscribe('singlePost', id),
-			postReady = postHandle.ready(),
-			sessionName = "postEditErrors";
 		
-				
+		const id = FlowRouter.getParam("_id"),
+			  errorsSessionName = 'postEditErrors',
+			  formDataSessionName = 'formData';
+			  
+		let data = {},
+			postHandle = Meteor.subscribe('singlePost', id),
+			postReady = postHandle.ready(),	
+			post = Posts.findOne(id);
+			
 		if (postReady) {
+			this.state.setOnceInitialFormInfo(post);
+			
 			Object.assign(data, {
-				post: Posts.findOne(id),
+				post: post,
 				postReady: postReady,
-				sessionName: sessionName, 
-				errors: Session.get(sessionName)
+				errorsSessionName: errorsSessionName,
+				formDataSessionName: formDataSessionName,
+				errors: Session.get(errorsSessionName),
+				formData: Session.get(formDataSessionName)
 			});
 		}
 
 		return data;
 	},
+		
+	setFormData (event) {
+		const field = event.target.name,
+		      value = event.target.value,
+			  formData = Session.get(this.data.formDataSessionName);
+			
+		formData[field] = value;
+		Session.set(this.data.formDataSessionName, formData);
+	},
 	
 	editPost (postId, post) {		
-
 		errors = validatePost(post);
 		
 		if (errors.title || errors.url) {
-			return Session.set(this.data.sessionName, errors);
+			return Session.set(this.data.errorsSessionName, errors);
 		}
 		
 		Meteor.call('postEdit', postId, post, function(error, result) {
@@ -53,7 +75,7 @@ PostEditContainer = React.createClass({
 	
 	getView () {
 		return AuthHelpers.ownPost(this.data.post.userId)
-			? <PostEdit post={this.data.post} errors={this.data.errors} editPost={this.editPost} deletePost={this.deletePost} />
+			? <PostEdit formData={this.data.formData} errors={this.data.errors} editPost={this.editPost} deletePost={this.deletePost} onChange={this.setFormData} />
 			: <AccessDenied message={"You are not the author of this post"}/>;		
 	},
 	
