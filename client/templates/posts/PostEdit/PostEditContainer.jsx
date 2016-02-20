@@ -18,7 +18,7 @@ PostEditContainer = React.createClass({
 				post: Posts.findOne(id),
 				postReady: postReady,
 				sessionName: sessionName, 
-				session: Session.get(sessionName)
+				errors: Session.get(sessionName)
 			});
 		}
 
@@ -53,7 +53,7 @@ PostEditContainer = React.createClass({
 	
 	getView () {
 		return AuthHelpers.ownPost(this.data.post.userId)
-			? <PostEdit post={this.data.post} sessionName={this.data.sessionName} editPost={this.editPost} deletePost={this.deletePost} />
+			? <PostEdit post={this.data.post} errors={this.data.errors} editPost={this.editPost} deletePost={this.deletePost} />
 			: <AccessDenied message={"You are not the author of this post"}/>;		
 	},
 	
