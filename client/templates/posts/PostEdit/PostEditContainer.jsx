@@ -48,7 +48,12 @@ PostEditContainer = React.createClass({
 		Session.set(this.data.formDataSessionName, formData);
 	},
 	
-	editPost (postId, post) {		
+	editPost (event) {		
+		event.preventDefault();
+			
+		const postId = FlowRouter.getParam("_id"),
+			  post = this.data.formData;
+
 		errors = validatePost(post);
 		
 		if (errors.title || errors.url) {
@@ -68,9 +73,15 @@ PostEditContainer = React.createClass({
 		});	
 	},
 	
-	deletePost (postId) {
-		Posts.remove(postId);
-		FlowRouter.go('/');		
+	deletePost (event) {
+		event.preventDefault();
+	
+		if (confirm("Delete this posts?")) {		
+			const postId = FlowRouter.getParam("_id");
+		
+			Posts.remove(postId);
+			FlowRouter.go('/');		
+		}
 	},
 	
 	getView () {
