@@ -1,16 +1,21 @@
 PostSubmitContainer = React.createClass({
-	componentWillMount: () => Session.set('postSubmitErrors', {}),
+	getInitialState () {
+		return {
+			submitErrorsSessionName: 'postSubmitErrors'
+		};
+	},
+
+	componentWillMount () {
+		Session.set(this.state.submitErrorsSessionName, {});
+	},
 	
 	mixins: [ReactMeteorData],
 	
-	getMeteorData () {			
-		const errorsSessionName = 'postSubmitErrors';
-		
+	getMeteorData () {					
 		let data = {};
 		
 		Object.assign(data, {
-			sessionName: errorsSessionName,
-			session: Session.get(errorsSessionName)
+			session: Session.get(this.state.submitErrorsSessionName)
 		});
 		
 		return data;
@@ -20,7 +25,7 @@ PostSubmitContainer = React.createClass({
 		
 		var errors = validatePost(post);
 		if (errors.title || errors.url) {		
-			return Session.set('postSubmitErrors', errors);
+			return Session.set(this.state.submitErrorsSessionName, errors);
 		}
 		
 		Meteor.call('postInsert', post, function(error, result) {
@@ -37,6 +42,6 @@ PostSubmitContainer = React.createClass({
 	},
 	
 	render () {		
-		return <PostSubmit sessionName={this.data.sessionName} insertPost={this.insertPost} />;		
+		return <PostSubmit sessionName={this.state.submitErrorsSessionName} insertPost={this.insertPost} />;		
 	}
 });
