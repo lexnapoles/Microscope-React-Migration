@@ -3,7 +3,7 @@ const authenticatedRoutes = FlowRouter.group({name: 'authenticated'})
 authenticatedRoutes.route('/posts/:_id/edit', {
 	name: 'postEdit',
 	action() {
-		ReactLayout.render(App, {main: <PostEditContainer />});
+		ReactLayout.render(App, {main: <PostEditPage />});
 	}
 });
 

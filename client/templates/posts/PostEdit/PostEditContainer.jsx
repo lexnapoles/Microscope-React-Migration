@@ -1,76 +1,42 @@
 PostEditContainer = React.createClass({
+	propTypes: {
+		post: React.PropTypes.object.isRequired
+	},
+	
 	getInitialState () {
 		return {
-			errorsSessionName: 'postEditErrors',
-			formDataSessionName: 'editFormData',
-			postId: FlowRouter.getParam("_id")
+			formData: { url: this.props.post.url, title:  this.props.post.title },
+			errors: {}
 		};
-	},
-	
-	componentWillMount () {
-		Session.set(this.state.errorsSessionName, {});
-		Session.set(this.state.formDataSessionName, { url: '', title: '' });
-	},
-
-	mixins: [ReactMeteorData],
-		
-	getMeteorData () {				
-		let data = {},
-			postHandle = Meteor.subscribe('singlePost', this.state.postId),
-			postReady = postHandle.ready(),	
-			post = Posts.findOne(this.state.postId);
-			
-		if (postReady) {
-			this.setInitialFormData(post); 
-			
-			Object.assign(data, {			
-				post: post,
-				postReady: postReady,
-				errors: Session.get(this.state.errorsSessionName),
-				formData: Session.get(this.state.formDataSessionName)
-			});
-		}
-
-		return data;
-	},
-		
-	setInitialFormData (post) {
-		const formDataSessionName = this.state.formDataSessionName,
-			  session = Session.get(formDataSessionName);
-		
-		if (session.url.length === 0 && session.title.length === 0) {
-			Session.set(formDataSessionName, { url: post.url, title: post.title})
-		}
-	},
-	
-	setFormData (event) {
-		const field = event.target.name,
-		      value = event.target.value,
-			  formDataSessionName  = this.state.formDataSessionName,
-			  formData = Session.get(formDataSessionName);
-			
-		formData[field] = value;
-		Session.set(formDataSessionName, formData);
 	},
 	
 	isValidPost (post) {
 		const errors = validatePost(post);
-			
-		if (errors.title || errors.url) {
-			Session.set(this.state.errorsSessionName, errors);
+		
+		if (errors.title || errors.url) {		
+			this.setState({errors: errors});
 			return false;
 		}
-				
+		
 		return true;
+	},
+	
+	setFormData (event) {	
+		const field = event.target.name,
+			  value = event.target.value;
+
+        this.state.formData[field] = value;
+        return this.setState({formData: this.state.formData});
 	},
 	
 	editPost (event) {		
 		event.preventDefault();
 			
-		const post = this.data.formData;			  
+		const post = this.state.formData,
+			  postId = this.props.post._id;
 
 		if (this.isValidPost(post)) {
-			Meteor.call('postEdit', this.state.postId, post, function(error, result) {
+			Meteor.call('postEdit', postId, post, function(error, result) {
 				if (error) {
 					return throwError(error.reason);
 				}
@@ -88,20 +54,12 @@ PostEditContainer = React.createClass({
 		event.preventDefault();
 	
 		if (confirm("Delete this posts?")) {		
-			Posts.remove(this.state.postId);
+			Posts.remove(this.props.post._id);
 			FlowRouter.go('/');		
 		}
 	},
 	
-	getView () {
-		return AuthHelpers.ownPost(this.data.post.userId)
-			? <PostEdit formData={this.data.formData} errors={this.data.errors} editPost={this.editPost} deletePost={this.deletePost} onChange={this.setFormData} />
-			: <AccessDenied message={"You are not the author of this post"}/>;		
-	},
-	
 	render () {
-		return this.data.postReady 
-				? this.getView()
-				: <Loading />
+		return <PostEditForm formData={this.state.formData} errors={this.state.errors} editPost={this.editPost} deletePost={this.deletePost} onChange={this.setFormData} />
 	}
 });

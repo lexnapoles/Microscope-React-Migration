@@ -1,4 +1,4 @@
-PostEdit = React.createClass({
+PostEditForm = React.createClass({
 	propTypes: {
 		editPost: React.PropTypes.func.isRequired,
 		deletePost: React.PropTypes.func.isRequired,
@@ -7,10 +7,7 @@ PostEdit = React.createClass({
 		errors: React.PropTypes.object
 	},
 	
-	render () {
-		console.log(this.props.formData.url);
-		console.log(this.props.formData.title);
-		
+	render () {		
 		return (		
 			<form className="main form page">
 				<Input
