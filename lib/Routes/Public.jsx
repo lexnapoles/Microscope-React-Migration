@@ -7,7 +7,7 @@ publicRoutes.route('/', {
 	}
 });
 
-publicRoutes.route('/new', { 
+publicRoutes.route('/new', {
 	name: 'newPosts',
 	action() {
 		ReactLayout.render(App, {main: <Pagination />});
@@ -15,14 +15,14 @@ publicRoutes.route('/new', {
 
 });
 
-publicRoutes.route('/best', { 
+publicRoutes.route('/best', {
 	name: 'bestPosts',
 	action() {
 		ReactLayout.render(App, {main: <Pagination />});
 	}
 });
 
-publicRoutes.route('/posts/:_id', { 
+publicRoutes.route('/posts/:_id', {
 	name: 'postPage',
 	action() {
 		ReactLayout.render(App, {main: <PostPageContainer />});

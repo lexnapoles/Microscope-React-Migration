@@ -15,11 +15,11 @@ AppHeader = React.createClass({
 							<span className="icon-bar"></span>
 						</button>
 						<a className="navbar-brand" href={FlowHelpers.pathFor('home')}>Microscope</a>
-					</div>					
-					{this.props.hasUser ? <AuthenticatedHeader /> : <PublicHeader />}					 
+					</div>
+					{this.props.hasUser ? <AuthenticatedHeader /> : <PublicHeader />}
 				</div>
-		
+
 			</nav>
-		)	
+		)
 	}
 });

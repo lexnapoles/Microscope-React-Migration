@@ -11,13 +11,13 @@ AuthenticatedHeader = React.createClass({
 					</li>
 					<li className={FlowHelpers.activeRouteClass('postSubmit')}>
 						<a href={FlowHelpers.pathFor('postSubmit')}>Submit Post</a>
-					</li>												
-					<NotificationsListContainer />					
+					</li>
+					<NotificationsListContainer />
 				</ul>
 				<ul>
 					<AccountsUIWrapper />
-				</ul>										
-			</div> 
-		)	
+				</ul>
+			</div>
+		)
 	}
 });

@@ -8,12 +8,12 @@ PublicHeader = React.createClass({
 					</li>
 					<li className={FlowHelpers.activeRouteClass('bestPosts')}>
 						<a href={FlowHelpers.pathFor('bestPosts')}>Best</a>
-					</li>		
-				</ul>				
+					</li>
+				</ul>
 				<ul>
 					<AccountsUIWrapper />
-				</ul>								
-			</div> 					
-		)	
+				</ul>
+			</div>
+		)
 	}
 });

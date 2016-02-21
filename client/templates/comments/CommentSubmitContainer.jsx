@@ -1,44 +1,56 @@
 CommentSubmitContainer = React.createClass({
-	componentWillMount() {
-		Session.set('commentSubmitErrors', {});
+	getInitialState () {
+		return {
+			comment: '',
+			errors: ''
+		};
 	},
-	
-	mixins: [ReactMeteorData],
-		
-	getMeteorData () {		
-		let data = {},			
-			sessionName = "commentSubmitErrors";	
-				
-		Object.assign(data, {
-			sessionName: sessionName, 
-			session: Session.get(sessionName)
-		});		
 
-		return data;
-	},
-	
-	submitComment (comment) {
-		let errors = {};
-		
-		if (!comment.body) {
-			errors.body = 'Please write some content';
-			return Session.set('commentSubmitErrors', errors);
+	submitComment (event) {
+		event.preventDefault();
+
+		const comment = {
+			body: this.state.comment,
+			postId: FlowRouter.getParam("_id")
+		};
+
+		if (this.isValidComment(comment)) {
+			Meteor.call('commentInsert', comment,
+				(error) => {
+					if (error) {
+						throwError(error.reason);
+					}
+					else {
+						this.setState({errors: ''});
+					}
+				}
+			);
+
+			this.setState({comment: ''});
 		}
-		
-		Meteor.call('commentInsert', comment, 
-			(error) => {
-				if (error) {
-					throwError(error.reason);
-				}
-				else {
-					Session.set(this.data.sessionName, {});
-				}
-			}
-		);
 	},
-	
-	render () {
-		return <CommentSubmit sessionName={this.data.sessionName} submitComment={this.submitComment}/>
-	}		
 
+	isValidComment (comment) {
+		if (comment.body.length === 0) {
+			this.state.errors = 'Please write some content';
+			this.setState({errors: this.state.errors});
+
+			return false;
+		}
+
+		return true;
+	},
+
+	handleTextChange (event) {
+		event.preventDefault();
+
+		const value = event.target.value;
+
+		this.state.comment = value;
+		return this.setState({comment: this.state.comment});
+	},
+
+	render () {
+		return <CommentSubmit comment={this.state.comment} errors={this.state.errors} submitComment={this.submitComment} onChange={this.handleTextChange} />
+	}
 });

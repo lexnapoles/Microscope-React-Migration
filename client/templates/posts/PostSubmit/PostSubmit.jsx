@@ -5,27 +5,27 @@ PostSubmit = React.createClass({
 		onChange: React.PropTypes.func.isRequired,
 		errors: React.PropTypes.object
 	},
-	
-	render () {		
-		return (				
-				<form className="main form page">
-					<Input
-						name="url"
-						label="URL"
-						onChange={this.props.onChange}
-						value={this.props.formData.url}
-						error={this.props.errors.url} />
-					<br />
-				
-					<Input
-						name="title"
-						label="Title"
-						onChange={this.props.onChange}
-						value={this.props.formData.title}
-						error={this.props.errors.title} />
-				
-					<input type="submit" value="Submit" className="btn btn-primary submit" onClick={this.props.insertPost}/>											
-				</form>							
+
+	render () {
+		return (
+			<form className="main form page"  onSubmit={this.props.insertPost} >
+				<Input
+					name="url"
+					label="URL"
+					onChange={this.props.onChange}
+					value={this.props.formData.url}
+					error={this.props.errors.url} />
+				<br />
+
+				<Input
+					name="title"
+					label="Title"
+					onChange={this.props.onChange}
+					value={this.props.formData.title}
+					error={this.props.errors.title} />
+
+				<input type="submit" value="Submit" className="btn btn-primary submit" />
+			</form>
 		)
 	}
 });

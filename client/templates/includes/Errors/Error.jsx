@@ -2,11 +2,11 @@ Error = React.createClass({
 	propTypes: {
 		error: React.PropTypes.object.isRequired
 	},
-	
+
 	componentDidMount () {
 		Meteor.setTimeout(() => Errors.remove(this.props.error._id), 3000);
 	},
-	
+
 	render () {
 		const error = this.props.error;
 		return (

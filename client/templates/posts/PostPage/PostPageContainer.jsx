@@ -1,17 +1,17 @@
 PostPageContainer = React.createClass({
 	mixins: [ReactMeteorData],
-		
-	getMeteorData () {		
+
+	getMeteorData () {
 		let data = {},
-			id = FlowRouter.getParam("_id"),
-			postHandle = Meteor.subscribe('singlePost', id),			
-			commentsHandle = Meteor.subscribe('comments', id),
-			postReady = postHandle.ready(),
-			commentsReady =  commentsHandle.ready();
-			
+				id = FlowRouter.getParam("_id"),
+				postHandle = Meteor.subscribe('singlePost', id),
+				commentsHandle = Meteor.subscribe('comments', id),
+				postReady = postHandle.ready(),
+				commentsReady =  commentsHandle.ready();
+
 		Object.assign(data, {
 			postReady: postReady,
-			commentsReady: commentsReady			
+			commentsReady: commentsReady
 		});
 
 		if (postReady && commentsReady) {
@@ -22,13 +22,13 @@ PostPageContainer = React.createClass({
 				comments: Comments.find({postId: id}).fetch()
 			});
 		}
-		
+
 		return data;
 	},
-	
+
 	render () {
 		return this.data.postReady && this.data.commentsReady
-				? <PostPage post={this.data.post} hasPost={this.data.hasPost} hasUser={this.data.hasUser} comments={this.data.comments} />
-				: <Loading />
+			? <PostPage post={this.data.post} hasPost={this.data.hasPost} hasUser={this.data.hasUser} comments={this.data.comments} />
+			: <Loading />
 	}
 });
